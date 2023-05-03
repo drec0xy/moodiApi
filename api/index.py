@@ -13,7 +13,7 @@ def about():
 
 @app.route('/infere/<inference>')
 def infer(inference):
-    return jsonify(userQuery = inference, botResponds = "Sorry I'm still under developement 🤪, I will be able to provide answers to your questions soon😎😁😜",queryTimestamp = "2013-10-21T13:28:06.419Z",respondTimestamp = datetime.now())
+    return jsonify(userQuery = inference, botResponds = "Sorry I'm still kinda dumb right now 🤪, Afte my training I'd be super smart,I'd answer all of your questions soon😎😁😜",queryTimestamp = "2013-10-21T13:28:06.419Z",respondTimestamp = datetime.now())
 
 
 if __name__ == '__main__':
