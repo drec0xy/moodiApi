@@ -21,7 +21,7 @@ def infer(inference):
 
 @app.route('/query/<query>')
 def inference(query):
-    return jsonify(userQuery = inference, botResponds = generate_answer(query), queryTimestamp = "2013-10-21T13:28:06.419Z",respondTimestamp = datetime.now())
+    return jsonify(userQuery = query, botResponds = generate_answer(query), queryTimestamp = "2013-10-21T13:28:06.419Z",respondTimestamp = datetime.now())
 
 
 if __name__ == '__main__':
