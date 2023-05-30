@@ -22,7 +22,7 @@ from sentence_transformers import SentenceTransformer
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 retriver = SentenceTransformer("flax-sentence-embeddings/all_datasets_v3_mpnet-base", device = device)
-retriver
+#retriver
 
 from transformers import BartTokenizer, BartForConditionalGeneration
 
@@ -37,9 +37,9 @@ def query_pinecone(query, top_k):
     xc = index.query(xq, top_k=top_k, include_metadata=True)
     return xc
 
-query = "what is the process to pay fees using mobile money"
-result = query_pinecone(query, top_k=2)
-result
+#query = "what is the process to pay fees using mobile money"
+#result = query_pinecone(query, top_k=2)
+#result
 
 from pprint import pprint
 
@@ -52,23 +52,23 @@ def format_query(query, context):
     query = f"question: {query} context: {context}"
     return query
 
-query = format_query(query, result["matches"])
-pprint(query)
+#query = format_query(query, result["matches"])
+#pprint(query)
 
 
 def generate_answer(query):
+    result = query_pinecone(query, top_k=20)
+    query = format_query(query, result["matches"])
     # tokenize the query to get input_ids
     inputs = tokenizer([query], max_length=1024, return_tensors="pt")
     # move the input tensor to the same device as the generator
     inputs = {k: v.to(generator.device) for k, v in inputs.items()}
     # use generator to predict output ids
-    ids = generator.generate(inputs["input_ids"], num_beams=10, temperature=0.7, min_length=30, max_length=60)
+    ids = generator.generate(inputs["input_ids"], num_beams=10, temperature=0.7, min_length=30, max_length=100)
     # use tokenizer to decode the output ids
     answer = tokenizer.batch_decode(ids, skip_special_tokens=True, clean_up_tokenization_spaces=True)[0]
-    return pprint(answer)
+    return answer
 
-query = "how many schools are they in the university of buea"
-result = query_pinecone(query, top_k=3)
-query = format_query(query, result["matches"])
-pprint(query)
-generate_answer(query)
+
+#pprint(query)
+#generate_answer(query)
